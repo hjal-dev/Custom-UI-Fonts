@@ -31,7 +31,6 @@ namespace CustomUIFonts
 
             if (!Directory.Exists(FontsDirectory))
             {
-                // tell the user why the dropdown is empty instead of failing silently
                 Plugin.Log.LogWarning("[CustomUIFonts] Fonts folder is missing - no custom fonts will be loaded. " +
                     "Created an empty one at: " + FontsDirectory + " - put your font .bundle files in there.");
                 Directory.CreateDirectory(FontsDirectory);
@@ -40,13 +39,11 @@ namespace CustomUIFonts
 
             foreach (var path in Directory.GetFiles(FontsDirectory, "*.bundle"))
             {
-                // the file name (without the .bundle) will pop up in dropdown
                 var name = Path.GetFileNameWithoutExtension(path);
                 bundlePaths[name] = path;
                 names.Add(name);
             }
 
-            // only the vanilla option means the folder had no bundles in it
             if (names.Count == 1)
             {
                 Plugin.Log.LogWarning("[CustomUIFonts] No font .bundle files found in: " + FontsDirectory +
